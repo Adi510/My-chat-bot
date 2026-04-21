@@ -16,7 +16,7 @@ def keep_alive():
     t = Thread(target=run)
     t.start()
 
-TOKEN = '6727896662:AAGMoO9E2YtKEZNo84evc80SQ6VYJc81qB4'
+TOKEN = '6727896662:AAElrKm8QvwKJl-yfjzQ-BYHPFmO-jxDRLk'
 GEMINI_API_KEY = 'AIzaSyBGoeHZIbyJuWo1bLNcO7-A_EOK52Vg61A'
 CHANNEL_LINK = 'https://t.me/kohli_k_007' 
 OWNER_ID = '@SEE_MY_DICK_ALWAYS' 
