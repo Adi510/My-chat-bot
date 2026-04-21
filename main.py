@@ -1,8 +1,21 @@
 import telebot
 from telebot import types
 import google.generativeai as genai
+from flask import Flask
+from threading import Thread
 
-# --- CONFIGURATION ---
+app = Flask('')
+@app.route('/')
+def home():
+    return "Bot is alive!"
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
 TOKEN = '6727896662:AAGMoO9E2YtKEZNo84evc80SQ6VYJc81qB4'
 GEMINI_API_KEY = 'AIzaSyBGoeHZIbyJuWo1bLNcO7-A_EOK52Vg61A'
 CHANNEL_LINK = 'https://t.me/kohli_k_007' 
@@ -23,7 +36,7 @@ def main_menu():
 @bot.message_handler(commands=['start'])
 def welcome(message):
     user_name = message.from_user.first_name
-    welcome_msg = f"Namaste {user_name}! 🙏\n\nMain ek smart AI bot hoon. Aap mujhse koi bhi sawal puch sakte hain.\n\nNiche diye buttons ka upyog karein 👇"
+    welcome_msg = f"Namaste {user_name}! 🙏\n\nMain ek smart AI bot hoon. Sawal puchiye!"
     try:
         bot.send_photo(message.chat.id, PHOTO_URL, caption=welcome_msg, reply_markup=main_menu())
     except:
@@ -42,8 +55,10 @@ def chat_with_ai(message):
         response = model.generate_content(prompt)
         bot.reply_to(message, response.text)
     except:
-        bot.reply_to(message, "Abhi AI busy hai, baad mein try karein.")
+        bot.reply_to(message, "AI thoda busy hai.")
 
 if __name__ == "__main__":
+    keep_alive()
+    print("Bot is running...")
     bot.infinity_polling()
-  
+    
